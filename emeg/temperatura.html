@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrando a temperatura</title>
+</head>
+<body>
+     <h2 id="temperatura"></h2>
+     <h2 id="status"></h2>
+    
+</body>
+<script>
+
+let c = Number(prompt("Digite a temperatura:"));
+
+let f = (c * 9/5) + 32;
+
+alert("C: " + c);
+alert("F: " + f);
+
+if (c <= 15) {
+    document.body.style.backgroundColor = "blue" ;
+    document.getElementById('temperatura').innerHTML = "Celsius: "+c+" Far: "+f;
+    document.getElementById('status').innerHTML = "frio";
+} else if (c <= 25) {
+    document.body.style.backgroundColor = "#7eff5c";
+     document.getElementById('temperatura').innerHTML = "Celsius: "+c+" Far: "+f;
+    document.getElementById('status').innerHTML = "Agradável";
+} else {
+    document.body.style.backgroundColor = "red";
+    document.getElementById('temperatura').innerHTML = "Celsius: "+c+" Far: "+f;
+    document.getElementById('status').innerHTML = "Calor";
+}
+
+</script>
+
+</script>
+
+</html>

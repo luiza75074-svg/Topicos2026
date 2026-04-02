@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperatura</title>
+</head>
+
+<body>
+
+<h2 id="temperatura"></h2>
+<h2 id="status"></h2>
+<h2 id="estacao"></h2>
+
+<img id="img" width="250">
+
+<script>
+
+let c = Number(prompt("Digite a temperatura:"));
+let f = (c * 9/5) + 32;
+
+let mes = Number(prompt("Digite o mês:"));
+
+
+if (c <= 15) {
+    document.body.style.backgroundColor = "blue";
+    document.getElementById("status").innerHTML = "Frio";
+} else if (c <= 25) {
+    document.body.style.backgroundColor = "green";
+    document.getElementById("status").innerHTML = "Agradável";
+} else {
+    document.body.style.backgroundColor = "red";
+    document.getElementById("status").innerHTML = "Calor";
+}
+
+
+document.getElementById("temperatura").innerHTML =
+    "C: " + c + " | F: " + f;
+
+
+if (mes <= 2 || mes == 12) {
+    document.getElementById("estacao").innerHTML = "Verão";
+    document.getElementById("img").src = "https://cdn-icons-png.flaticon.com/512/979/979585.png";
+
+} else if (mes <= 5) {
+    document.getElementById("estacao").innerHTML = "Outono";
+    document.getElementById("img").src = "https://cdn-icons-png.flaticon.com/512/1146/1146869.png";
+
+} else if (mes <= 8) {
+    document.getElementById("estacao").innerHTML = "Inverno";
+    document.getElementById("img").src = "https://cdn-icons-png.flaticon.com/512/2315/2315309.png";
+
+} else {
+    document.getElementById("estacao").innerHTML = "Primavera";
+    document.getElementById("img").src = "https://cdn-icons-png.flaticon.com/512/2909/2909764.png";
+}
+
+</script>
+
+</body>
+</html>
