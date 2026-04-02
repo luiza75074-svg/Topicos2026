@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculando notas</title>
+        <style>
+        body {
+            background-color: #ffb6c1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h2 {
+            color: #e6acd2;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 15px;
+           
+        }
+    </style>
+</head>
+<body>
+    <h2 id="resultado"></h2>
+</body>
+
+<script>
+let n1 = Number(prompt("digite a primeira nota:"));
+let n2 = Number(prompt("digite a segunda:"));
+
+let media = (n1 + n2) / 2;
+
+let situacao;
+
+if (media >= 7) {
+    situacao = "Aprovado";
+} else if (media >= 1.7) {
+    situacao = "Recuperação";
+} else {
+    situacao = "Reprovado";
+}
+
+alert("Média: " + media + " - " + situacao);
+</script>
+
+</html>

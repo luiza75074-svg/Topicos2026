@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de cliques </title>
+     <style>
+        body {
+            background-color: #ffb6c1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h2 {
+            color: #e6acd2;
+            background-color: white;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 15px;
+            
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #e6acd2;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+         
+        }
+
+        
+        
+    </style>
+</head>
+<body>
+    <h2 id="contador">Cliques: 0</h2>
+    
+    <button onclick="contarClique()">Clique aqui</button>
+  
+
+    
+</body>
+  <script>
+        let clique = 0;
+        function contarClique(){
+            clique = clique + 1;
+            document.getElementById('contador').innerHTML = "Cliques: "+clique;      
+        }
+
+    </script>
+</html>
