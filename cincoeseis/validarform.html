@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Atividade 5</title>
+</head>
+<style>
+body {
+    font-family: Arial;
+    background-color: #f1cde7;
+}
+
+form {
+    background-color: rgb(236, 230, 234);
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: rgb(252, 119, 192);
+    color: white;
+    border: none;
+}
+</style>
+
+<body>
+
+<form>
+
+<input type="text" id="cpf" placeholder="CPF" oninput="mascara()">
+<br><br>
+
+<input type="text" id="telefone" placeholder="Telefone" oninput="mascara()">
+<br><br>
+
+<input type="text" id="data" placeholder="Data" oninput="mascara()">
+<br><br>
+
+<button type="button" onclick="enviar()">Enviar</button>
+
+</form>
+
+<script>
+
+function mascara() {
+
+  
+    let cpf = document.getElementById("cpf").value;
+    cpf = cpf.replace(/\D/g, "");
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    document.getElementById("cpf").value = cpf;
+
+
+    let tel = document.getElementById("telefone").value;
+    tel = tel.replace(/\D/g, "");
+    tel = tel.replace(/(\d{2})(\d)/, "($1) $2");
+    tel = tel.replace(/(\d{5})(\d)/, "$1-$2");
+    document.getElementById("telefone").value = tel;
+
+    
+    let data = document.getElementById("data").value;
+    data = data.replace(/\D/g, "");
+    data = data.replace(/(\d{2})(\d)/, "$1/$2");
+    data = data.replace(/(\d{2})(\d)/, "$1/$2");
+    document.getElementById("data").value = data;
+}
+
+function enviar() {
+
+    let cpf = document.getElementById("cpf").value;
+    let tel = document.getElementById("telefone").value;
+    let data = document.getElementById("data").value;
+
+    if (cpf.length < 14) {
+        alert("CPF incompleto!");
+        return;
+    }
+
+    if (tel.length < 15) {
+        alert("Telefone incompleto!");
+        return;
+    }
+
+    if (data.length < 10) {
+        alert("Data incompleta!");
+        return;
+    }
+
+    alert("Formulário enviado!");
+}
+
+</script>
+
+</body>
+</html>
