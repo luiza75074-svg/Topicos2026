@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CineCute Bot</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ffd6e7,#d9c6ff,#cfe8ff);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.chat-container{
+    width:420px;
+    height:700px;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
+}
+
+.header{
+    background:#ffb6d9;
+    padding:18px;
+    text-align:center;
+    color:#444;
+}
+
+.header h1{
+    font-size:28px;
+}
+
+.header p{
+    font-size:14px;
+    margin-top:5px;
+}
+
+.chat-box{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+    background:#fff8fc;
+    display:flex;
+    flex-direction:column;
+}
+
+.message{
+    margin-bottom:15px;
+    padding:12px;
+    border-radius:15px;
+    max-width:85%;
+    animation:subir .4s ease;
+    font-size:14px;
+}
+
+.bot{
+    background:#f3d9ff;
+}
+
+.user{
+    background:#cfe8ff;
+    margin-left:auto;
+}
+
+.input-area{
+    display:flex;
+    padding:15px;
+    background:white;
+    border-top:1px solid #eee;
+}
+
+input{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:20px;
+    background:#f3f3f3;
+    outline:none;
+}
+
+button{
+    border:none;
+    background:#ff8fc7;
+    color:white;
+    padding:12px 18px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.3s;
+    font-weight:500;
+}
+
+button:hover{
+    background:#ff6db5;
+}
+
+.categorias{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.categorias button{
+    padding:8px 12px;
+    border-radius:15px;
+    font-size:13px;
+}
+
+.filmes{
+    margin-top:12px;
+    display:grid;
+    gap:10px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:12px;
+    transition:.3s;
+    border:1px solid #eee;
+}
+
+.card:hover{
+    transform:scale(1.02);
+    box-shadow:0 5px 15px rgba(0,0,0,0.12);
+}
+
+.card h3{
+    font-size:15px;
+    color:#333;
+}
+
+.card p{
+    font-size:13px;
+    color:#666;
+    margin-top:4px;
+}
+
+a{
+    color:#ff4da6;
+    text-decoration:none;
+    font-weight:500;
+}
+
+@keyframes subir{
+
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.9);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+    <div class="header">
+        <h1>CineCute Bot</h1>
+        <p>Seu chatbot de filmes</p>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+
+        <div class="message bot">
+
+            Olá 
+            <br><br>
+
+            Escolha uma categoria:
+
+            <div class="categorias">
+                <button onclick="mostrarCategoria('infantil')">Infantil</button>
+
+                <button onclick="mostrarCategoria('comedia')">Comédia</button>
+
+                <button onclick="mostrarCategoria('acao')">Ação</button>
+
+                <button onclick="mostrarCategoria('terror')">Terror</button>
+            </div>
+
+            <br>
+
+            Ou pesquise qualquer filme 🎬
+
+        </div>
+
+    </div>
+
+    <div class="input-area">
+        <input 
+        type="text" 
+        id="userInput" 
+        placeholder="Digite um filme...">
+
+        <button onclick="enviarMensagem()">
+            Enviar
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+const chatBox = document.getElementById("chatBox");
+
+const filmes = {
+
+    infantil: [
+
+        {
+            nome:"Toy Story",
+            ano:"1995",
+            nota:"8.3"
+        },
+
+        {
+            nome:"Encanto",
+            ano:"2021",
+            nota:"7.2"
+        },
+
+        {
+            nome:"Luca",
+            ano:"2021",
+            nota:"7.4"
+        },
+
+        {
+            nome:"Divertida Mente",
+            ano:"2015",
+            nota:"8.1"
+        }
+
+    ],
+
+    comedia: [
+
+        {
+            nome:"As Branquelas",
+            ano:"2004",
+            nota:"7.0"
+        },
+
+        {
+            nome:"Gente Grande",
+            ano:"2010",
+            nota:"6.9"
+        },
+
+        {
+            nome:"Miss Simpatia",
+            ano:"2000",
+            nota:"6.3"
+        },
+
+        {
+            nome:"Marley & Eu",
+            ano:"2008",
+            nota:"7.0"
+        }
+
+    ],
+
+    acao: [
+
+        {
+            nome:"John Wick",
+            ano:"2014",
+            nota:"7.5"
+        },
+
+        {
+            nome:"Top Gun Maverick",
+            ano:"2022",
+            nota:"8.2"
+        },
+
+        {
+            nome:"Pantera Negra",
+            ano:"2018",
+            nota:"7.3"
+        },
+
+        {
+            nome:"Batman: O Cavaleiro das Trevas",
+            ano:"2008",
+            nota:"9.0"
+        }
+
+    ],
+
+    terror: [
+
+        {
+            nome:"Invocação do Mal",
+            ano:"2013",
+            nota:"7.5"
+        },
+
+        {
+            nome:"It: A Coisa",
+            ano:"2017",
+            nota:"7.3"
+        },
+
+        {
+            nome:"A Freira",
+            ano:"2018",
+            nota:"5.3"
+        },
+
+        {
+            nome:"Pânico",
+            ano:"1996",
+            nota:"7.4"
+        }
+
+    ]
+
+};
+
+function adicionarMensagem(texto, tipo){
+
+    const msg = document.createElement("div");
+
+    msg.classList.add("message", tipo);
+
+    msg.innerHTML = texto;
+
+    chatBox.appendChild(msg);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function enviarMensagem(){
+
+    const input = document.getElementById("userInput");
+
+    const texto = input.value.trim();
+
+    if(texto === ""){
+        return;
+    }
+
+    adicionarMensagem(texto, "user");
+
+    responderBot(texto.toLowerCase());
+
+    input.value = "";
+}
+
+function responderBot(texto){
+
+    const respostasOi = [
+
+        "Olá 👋 Como posso ajudar?",
+
+        "Oi 😊 Quer sugestões de filmes?",
+
+        "Oii 🎬 Me diga uma categoria."
+
+    ];
+
+    if(
+        texto.includes("oi") ||
+        texto.includes("olá")
+    ){
+
+        const resposta =
+        respostasOi[Math.floor(Math.random() * respostasOi.length)];
+
+        adicionarMensagem(resposta, "bot");
+
+        return;
+    }
+
+    if(texto.includes("infantil")){
+        mostrarCategoria("infantil");
+        return;
+    }
+
+    if(
+        texto.includes("comedia") ||
+        texto.includes("comédia")
+    ){
+        mostrarCategoria("comedia");
+        return;
+    }
+
+    if(
+        texto.includes("acao") ||
+        texto.includes("ação")
+    ){
+        mostrarCategoria("acao");
+        return;
+    }
+
+    if(texto.includes("terror")){
+        mostrarCategoria("terror");
+        return;
+    }
+
+    pesquisarGoogle(texto);
+}
+
+function mostrarCategoria(categoria){
+
+    let titulo = "";
+
+    if(categoria === "infantil"){
+        titulo = "Filmes Infantis";
+    }
+
+    if(categoria === "comedia"){
+        titulo = "Filmes de Comédia";
+    }
+
+    if(categoria === "acao"){
+        titulo = "Filmes de Ação";
+    }
+
+    if(categoria === "terror"){
+        titulo = "Filmes de Terror";
+    }
+
+    let html = `
+    
+        <strong>${titulo}</strong>
+
+        <div class="filmes">
+
+    `;
+
+    filmes[categoria].forEach(filme => {
+
+        html += `
+        
+        <div class="card">
+
+            <h3> ${filme.nome}</h3>
+
+            <p> ${filme.nota}</p>
+
+            <p> ${filme.ano}</p>
+
+            <br>
+
+            <a 
+            target="_blank"
+            href="https://www.youtube.com/results?search_query=trailer+${filme.nome}">
+            
+            Ver trailer
+            
+            </a>
+
+        </div>
+
+        `;
+    });
+
+    html += `</div>`;
+
+    adicionarMensagem(html, "bot");
+}
+
+function pesquisarGoogle(filme){
+
+    adicionarMensagem(
+
+    `
+    
+    Não encontrei esse filme na lista 
+    
+    <br><br>
+
+    <a 
+    href="https://www.google.com/search?q=${filme}+filme"
+    target="_blank">
+
+    pesquisar "${filme}"
+
+    </a>
+
+    `,
+
+    "bot"
+
+    );
+}
+
+document
+.getElementById("userInput")
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        enviarMensagem();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
